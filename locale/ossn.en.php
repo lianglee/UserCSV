@@ -9,7 +9,7 @@
  * @link      http://www.opensource-socialnetwork.org/licence
  */
 $en = array(
-    'userscsv' => 'Users CSV',
+    'usercsv' => 'Users CSV',
 	'userscsv:generate' => 'Generate',
 );
 ossn_register_languages('en', $en); 
