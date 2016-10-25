@@ -10,7 +10,8 @@
  */
 $users = new OssnUser;
 $users = $users->getSiteUsers(array(
-				'params' => array("first_name", "last_name", "email")					
+				'params' => array("first_name", "last_name", "email"),
+				'page_limit' => false,
 		  ));
 
 foreach($users as $item){
