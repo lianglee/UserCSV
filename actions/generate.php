@@ -46,7 +46,7 @@ foreach ( $keys as $key ) {
 	$records[0][$key] = $key;
 }
 
-// 4. loop again and append new rows, setting keys to corresponding values 
+// 4. loop again and append member rows, setting keys to corresponding values 
 $row = 0;
 foreach ( $results as $data ) {
 	$row++;
