@@ -18,7 +18,7 @@ foreach($users as $item){
 	$results[] = (array)$item;
 }
 
-$fileName = "user-list-".date("d-y-m").".csv";
+$fileName = "user-list-".date("d-m-Y").".csv";
  
 header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 header('Content-Description: File Transfer');
@@ -29,14 +29,33 @@ header("Pragma: public");
 
 $fh = @fopen( 'php://output', 'w' );
 
-$headerDisplayed = false;
-
+// 1. extract all keys
+$keys = array();
 foreach ( $results as $data ) {
-    if ( !$headerDisplayed ) {
-        fputcsv($fh, array_keys($data));
-        $headerDisplayed = true;
-    }
- 
+	$keys = array_merge($keys, array_keys($data));
+}
+
+// 2. remove duplicate keys
+$keys = array_unique($keys);
+// 2a. for some reason I don't understand getUser() returns an empty Object named 'data' - remove it!
+$keys = array_diff($keys, ['data']);
+
+// 3. build up new array with record[0] using keys as csv file headline
+$records = array();
+foreach ( $keys as $key ) {
+	$records[0][$key] = $key;
+}
+
+// 4. loop again and append member rows, setting matching keys to corresponding values 
+$row = 0;
+foreach ( $results as $data ) {
+	$row++;
+	foreach ( $keys as $key ) {
+		$records[$row][$key] = $data[$key];
+	}
+}
+
+foreach ( $records as $data ) {
     fputcsv($fh, $data);
 }
 fclose($fh);
