@@ -48,15 +48,16 @@ foreach ( $keys as $key ) {
 
 // 4. loop again and append member rows, setting matching keys to corresponding values 
 $row = 0;
+// write header row
+fputcsv($fh, $records[$row]);
+
 foreach ( $results as $data ) {
 	$row++;
 	foreach ( $keys as $key ) {
 		$records[$row][$key] = $data[$key];
 	}
+	fputcsv($fh, $records[$row]);
 }
 
-foreach ( $records as $data ) {
-    fputcsv($fh, $data);
-}
 fclose($fh);
 exit;
