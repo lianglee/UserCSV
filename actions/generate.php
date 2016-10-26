@@ -40,13 +40,13 @@ $keys = array_unique($keys);
 // 2a. for some reason I don't understand getUser() returns an empty Object named 'data' - remove it!
 $keys = array_diff($keys, ['data']);
 
-// 3. build up new array with record[0] using keys as headline
+// 3. build up new array with record[0] using keys as csv file headline
 $records = array();
 foreach ( $keys as $key ) {
 	$records[0][$key] = $key;
 }
 
-// 4. loop again and append member rows, setting keys to corresponding values 
+// 4. loop again and append member rows, setting matching keys to corresponding values 
 $row = 0;
 foreach ( $results as $data ) {
 	$row++;
