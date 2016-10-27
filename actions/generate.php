@@ -47,16 +47,16 @@ foreach ( $keys as $key ) {
 }
 
 // 4. loop again and append member rows, setting matching keys to corresponding values 
-$row = 0;
+// write header row
+fputcsv($fh, $records[0]);
+
 foreach ( $results as $data ) {
-	$row++;
 	foreach ( $keys as $key ) {
-		$records[$row][$key] = $data[$key];
+		// don't exhaust mem with another mammoth array - just overwrite
+		$records[0][$key] = $data[$key];
 	}
+	fputcsv($fh, $records[0]);
 }
 
-foreach ( $records as $data ) {
-    fputcsv($fh, $data);
-}
 fclose($fh);
 exit;
