@@ -11,7 +11,7 @@
 $users = new OssnUser;
 $params_to_export = array("first_name", "last_name", "email"); //for email just keep email and remove others.
 $users = $users->searchUsers(array(
-				'page_limt' => false,
+				'page_limit' => false,
 ));
 
 foreach($users as $item){
