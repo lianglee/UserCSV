@@ -4,12 +4,16 @@
     <id>UserCSV</id>
     <author>Arsalan Shah</author>
     <description>Allow admins to generate a users list in csv format.</description>
-    <license>GNU General Public License, version 2</license>
-    <author_url>http://www.informatikon.com/</author_url>
+    <license>OSSN license v3 </license>
+    <author_url>https://www.softlab24.com</author_url>
     <license_url>http://www.opensource-socialnetwork.org/licence/</license_url>
-    <version>3.0</version>
+    <version>5.1</version>
 	<requires>
 		<type>ossn_version</type>
-		<version>3.0</version>
+		<version>5.0</version>
 	</requires>
 </component>
+<!--
+	Fixed the export ,  returned 0 
+	because of the old method used to extract users
+!-->
