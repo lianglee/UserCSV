@@ -9,15 +9,21 @@
  * @link      http://www.opensource-socialnetwork.org/licence
  */
 $users = new OssnUser;
-$users = $users->getSiteUsers(array(
-				'params' => array("first_name", "last_name", "email"),
-				'page_limit' => false,
-		  ));
+$params_to_export = array("first_name", "last_name", "email"); //for email just keep email and remove others.
+$users = $users->searchUsers(array(
+				'page_limt' => false,
+));
 
 foreach($users as $item){
-	$results[] = (array)$item;
+	if($item instanceof OssnUser){	
+		foreach($item as $key => $value){
+			if(in_array($key, $params_to_export)){
+				$results[$item->guid]->{$key} = $value;	
+			}
+		}
+		$results[$item->guid] = (array)$results[$item->guid];
+	}
 }
-
 $fileName = "user-list-".date("d-m-Y").".csv";
  
 header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
