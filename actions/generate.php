@@ -17,6 +17,9 @@ $users = $users->searchUsers(array(
 foreach($users as $item){
 	if($item instanceof OssnUser){	
 		foreach($item as $key => $value){
+			if(!isset($results[$item->guid])){
+				$results[$item->guid] = new stdClass();	
+			}
 			if(in_array($key, $params_to_export)){
 				$results[$item->guid]->{$key} = $value;	
 			}
@@ -25,10 +28,9 @@ foreach($users as $item){
 	}
 }
 $fileName = "user-list-".date("d-m-Y").".csv";
- 
 header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 header('Content-Description: File Transfer');
-header("Content-type: text/csv");
+header('Content-type: text/csv; charset=UTF-8');
 header("Content-Disposition: attachment; filename={$fileName}");
 header("Expires: 0");
 header("Pragma: public");
@@ -52,6 +54,7 @@ foreach ( $keys as $key ) {
 	$records[0][$key] = $key;
 }
 
+fprintf($fh, chr(0xEF).chr(0xBB).chr(0xBF));
 // 4. loop again and append member rows, setting matching keys to corresponding values 
 // write header row
 fputcsv($fh, $records[0]);
